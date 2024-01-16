@@ -30,7 +30,7 @@ const Header = (props) => {
       <div className='header'>
         <Link to="/" className='links'>Home</Link>
         <select value='' onChange={(e) =>
-          localStorage.setItem('userLoc', e.target.value)}>
+          localStorage.setItem('userLoc', e.target.value)} className='search'>
           {
             location.map((item, index) => {
               return (
@@ -77,6 +77,13 @@ const Header = (props) => {
                 </Link>
               }
             </div>
+            {/* <div>
+              {localStorage.getItem('token') &&
+                <Link to='/my-profile'>
+                  <button className='logout-btn'>MY PROFILE</button>
+                </Link>
+              }
+            </div> */}
             <div>
               {!localStorage.getItem('token') ?
                 <Link to="login"> LOGIN </Link> :

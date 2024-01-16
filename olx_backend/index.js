@@ -9,7 +9,7 @@ import multer from 'multer';
 import path from 'path'
 // import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import { Login, My_Products, SignUp, User_Detail } from './Controllers/UserController.js';
+import { Login, MyProfile, My_Products, SignUp, User_Detail } from './Controllers/UserController.js';
 import { AddProduct, Get_Like_Product, Get_Product, Get_Products, Like_Product, Product_Detail, search } from './Controllers/ProductController.js';
 
 const app = express()
@@ -37,7 +37,7 @@ const upload = multer({ storage: storage })
 // Request 
 app.post("/signup", SignUp)
 app.post("/login", Login)
-app.get('/user-detail/:uId',User_Detail)
+app.get('/user-detail/:uId', User_Detail)
 app.post("/add-Product", upload.fields([{ name: 'pimage' }, { name: 'pimage2' }]), AddProduct)
 app.get('/get-Product', Get_Product)
 app.post('/like-Product', Like_Product)
@@ -45,7 +45,8 @@ app.post('/get-like-Product', Get_Like_Product)
 app.get('/product-detail/:id', Product_Detail)
 app.get('/search', search)
 app.get('/get-Products', Get_Products)
-app.post('/my-products',My_Products)
+app.post('/my-products', My_Products)
+app.get('/my-profile/:userId', MyProfile)
 // Port Setting
 app.listen(7000, () => {
   console.log(`Example app running om port no 7000`)

@@ -91,3 +91,23 @@ export const My_Products=(req,res)=>{
             res.send({ message: 'server err' })
         })
 }
+
+export const MyProfile=(req,res)=>{
+    let uid = req.params.userId
+
+    Users.findOne({ _id: uid })
+        .then((result) => {
+            res.send({
+                message: 'success.', user: {
+                    email: result.email,
+                    mobile: result.mobile,
+                    username: result.username
+                }
+            })
+        })
+        .catch(() => {
+            res.send({ message: 'server err' })
+        })
+
+    return;
+}

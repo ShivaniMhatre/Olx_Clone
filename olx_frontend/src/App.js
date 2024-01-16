@@ -10,6 +10,7 @@ import LikedProducts from './components/LikedProducts';
 import ProductDetail from './components/ProductDetail';
 import CategoryPage from './components/CategoryPage';
 import MyProducts from './components/MyProducts';
+import MyProfile from './components/MyProfile';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route exact path='/like-Product' element={<LikedProducts/>}/>
         <Route exact path='/product-detail/:id' element={<ProductDetail/>}/>
         <Route exact path='/my-products' element={<MyProducts/>}/>
+        <Route exact path='/my-profile' element={<MyProfile/>}/>
       </Routes>
 
     </div>
