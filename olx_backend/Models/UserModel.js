@@ -5,14 +5,22 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    email:{
+        type:String,
+        required:true
+    },
+    mobile:{
+        type:String,
+        required:true
+    },
     password: {
         type: String,
         required: true
     },
-    likedProduct:{
+    likedProducts:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Product'
-    }
+    }]
 })
 
 export default mongoose.model("User", userSchema)

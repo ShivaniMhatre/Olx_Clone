@@ -15,7 +15,15 @@ const productSchema = new Schema({
     },
     pimage:{
         type:String
+    },
+    pimage2:{
+        type:String
+    },
+    addedBy:{
+        type:mongoose.Schema.Types.ObjectId
     }
 })
+
+
 
 export default mongoose.model("Product", productSchema)

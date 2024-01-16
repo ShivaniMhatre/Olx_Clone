@@ -3,6 +3,7 @@ import Header from './Header'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import api from './Config/API'
 
 const SignUp = () => {
     const [userData, setUserData] = useState({ username: '', password: '', Confirmpassword: '' });
@@ -15,9 +16,9 @@ const SignUp = () => {
     }
     const handleSignup = async (e) => {
         e.preventDefault();
-        if (userData.username && userData.password && userData.Confirmpassword) {
+        if (userData.username && userData.password && userData.Confirmpassword && userData.email && userData.mobile) {
             if (userData.password === userData.Confirmpassword) {
-                const response = await axios.post("http://localhost:7000/signup", { userData })
+                const response = await api.post("/signup", { userData })
                 if (response.data.success) {
                     setUserData({ username: '', password: '', Confirmpassword: '' })
                     route('/login')
@@ -44,25 +45,45 @@ const SignUp = () => {
     }
     return (
         <div>
-            {/* <Header /> */}
-            UserName
-            <input
-                type='text'
-                name='username'
-                onChange={handleChange} /><br />
-            Password
-            <input
-                type='password'
-                name='password'
-                onChange={handleChange} /><br />
-            Confirm Password
-            <input
-                type='password'
-                name='Confirmpassword'
-                onChange={handleChange} />
-            <br />
-            <button onClick={handleSignup}>SignUp</button>
-            <Link to="/login">Login</Link>
+            <Header />
+            <div className='p-3 m-3'>
+                <h4 className='text-center'>Welcome To Signup Page</h4>
+                <div className=''>
+                    UserName
+                    <input
+                        type='text'
+                        name='username'
+                        onChange={handleChange}
+                        className='form-control' /><br />
+                    Email
+                    <input
+                        type='email'
+                        name='email'
+                        onChange={handleChange}
+                        className='form-control' /><br />
+                    Mobile No
+                    <input
+                        type='text'
+                        name='mobile'
+                        onChange={handleChange}
+                        className='form-control' /><br />
+                    Password
+                    <input
+                        type='password'
+                        name='password'
+                        onChange={handleChange}
+                        className='form-control' /><br />
+                    Confirm Password
+                    <input
+                        type='password'
+                        name='Confirmpassword'
+                        onChange={handleChange}
+                        className='form-control' />
+                    <br />
+                    <button className='btn btn-primary' onClick={handleSignup}>SignUp</button>
+                    <Link className='m-3' to="/login">Login</Link>
+                </div>
+            </div>
         </div>
     )
 }

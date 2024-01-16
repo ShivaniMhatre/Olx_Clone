@@ -1,11 +1,11 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import './Home.css'
-import Header from './Header'
-import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import toast from 'react-hot-toast'
-import Categories from './Categories'
-import { FaHeart } from "react-icons/fa";
+import toast from 'react-hot-toast';
+import { FaHeart } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import Header from './Header';
+import Categories from './Categories';
+import api from './Config/API';
 
 const LikedProducts = () => {
     const route = useNavigate();
@@ -20,8 +20,9 @@ const LikedProducts = () => {
     // }, [])
 
     useEffect(() => {
-        const url = 'http://localhost:7000/liked-product'
-        axios.get(url)
+        const url = api + '/get-like-Product';
+        let data = { userId: localStorage.getItem('UserId') }
+        axios.post(url, data)
             .then((res) => {
                 if (res.data.product) {
                     setProducts(res.data.product)
@@ -57,16 +58,16 @@ const LikedProducts = () => {
 
     const handleLike = (productId) => {
         let userId = localStorage.getItem('UserId')
+        const url = api + '/like-Product'
         const data = { userId, productId }
-        const url = 'http://localhost:7000/like-Product'
         axios.post(url, data)
             .then((res) => {
-                if(res.data.message){
-                    toast.success(res.data.message)
+                if (res.data.messages) {
+                    alert("Liked")
                 }
             })
             .catch((err) => {
-                toast.error('Server Error')
+                alert("server Err")
             })
     }
 
@@ -85,7 +86,7 @@ const LikedProducts = () => {
                                 <div onClick={() => handleLike(item._id)} className='icon-con'>
                                     <FaHeart className='icons' />
                                 </div>
-                                <img width="300px" height="200px" src={'http://localhost:7000/' + item.pimage} />
+                                <img width="300px" height="200px" src={api + '/' + item.pimage} />
                                 <p className='m-2'>{item.pname} | {item.pcate}</p>
                                 <h3 className='m-2 text-danger'>{item.pprice}</h3>
                                 <p className='m-2 text-success'>{item.pdesc}</p>
@@ -104,7 +105,7 @@ const LikedProducts = () => {
                                 <div onClick={() => handleLike(item._id)} className='icon-con'>
                                     <FaHeart className='icons' />
                                 </div>
-                                <img width="300px" height="200px" src={'http://localhost:7000/' + item.pimage} />
+                                <img width="300px" height="200px" src={api + '/' + item.pimage} />
                                 <p className='m-2'>{item.pname} | {item.pcate}</p>
                                 <h3 className='m-2 text-danger'>{item.pprice}</h3>
                                 <p className='m-2 text-success'>{item.pdesc}</p>

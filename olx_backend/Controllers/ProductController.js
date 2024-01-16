@@ -2,15 +2,18 @@ import ProductModel from "../Models/ProductModel.js";
 import UserModel from "../Models/UserModel.js";
 
 export const AddProduct = (req, res) => {
-    // console.log(req.body);
-    // console.log(req.file.path);
+    console.log(req.body)
+
+
+    const plat = req.body.plat;
+    const plong = req.body.plong
     const pname = req.body.pname;
     const pdesc = req.body.pdesc;
     const pcate = req.body.pcate;
     const pprice = req.body.pprice;
-    const pimage = req.file.path;
-
-
+    const pimage = req.files.pimage[0].path;
+    const pimage2 = req.files.pimage2[0].path;
+    const addedBy = req.body.userId;
 
     const product = new ProductModel({
         pname,
@@ -18,7 +21,8 @@ export const AddProduct = (req, res) => {
         pcate,
         pprice,
         pimage,
-
+        pimage2,
+        addedBy
     });
     product.save()
         .then(() => {
@@ -39,23 +43,65 @@ export const Get_Product = (req, res) => {
         })
 }
 
-export const Liked_Product = (req, res) => {
+export const Like_Product = (req, res) => {
     let productId = req.body.productId;
     let userId = req.body.userId;
-    UserModel.updateOne({ _id: userId }, { $addToSet: { likedProduct: productId } })
-    .then(() => {
-        res.send({ message: "success" })
-    })
-    .catch((err) => {
-        res.send({ message: "server err" })
-    })
-
+    UserModel.updateOne({ _id: userId }, { $addToSet: { likedProducts: productId } })
+        .then(() => {
+            res.send({ message: "Liked Success " })
+        })
+        .catch(() => {
+            res.send({ message: "server err" })
+        })
 }
-export const Get_Liked_Product = (req, res) => {
-    UserModel.find().populate('likedProduct')
+
+export const Get_Like_Product = (req, res) => {
+    UserModel.findOne({ _id: req.body.userId }).populate('likedProducts')
+        .then((result) => {
+            res.send({ message: "success", product: result.likedProducts })
+        })
+        .catch((err) => {
+            res.send({ message: "server err" })
+        })
+}
+
+export const Product_Detail = (req, res) => {
+    ProductModel.findOne({ _id: req.params.id })
         .then((result) => {
             res.send({ message: "success", product: result })
-            // console.log(result)
+        })
+        .catch((err) => {
+            res.send({ message: "server err" })
+        })
+}
+
+export const search = (req, res) => {
+    let search = req.query.search
+    ProductModel.find({
+        $or: [
+            { pname: { $regex: search } },
+            { pdesc: { $regex: search } },
+            { pcate: { $regex: search } },
+            { pprice: { $regex: search } }
+        ]
+    })
+        .then((results) => {
+            res.send({ message: "success", product: results })
+        })
+        .catch((err) => {
+            res.send({ message: "server err" })
+        })
+}
+
+export const Get_Products = (req, res) => {
+    const catName = req.query.catName;
+    let f = {};
+    if (catName) {
+        f = { pcate: catName }
+    }
+    ProductModel.find(f)
+        .then((result) => {
+            res.send({ message: "success", product: result })
         })
         .catch((err) => {
             res.send({ message: "server err" })

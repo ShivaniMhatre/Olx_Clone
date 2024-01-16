@@ -1,12 +1,13 @@
 import UserModel from "../Models/UserModel.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
+import ProductModel from "../Models/ProductModel.js";
 
 export const SignUp = async (req, res) => {
     try {
         // const { userData } = req.body
-        const { username, password } = req.body.userData;
-        if (!username || !password) return res.json({ success: false, message: "All fields are mandtory.." })
+        const { username, password, email, mobile } = req.body.userData;
+        if (!username || !password || !email || !mobile) return res.json({ success: false, message: "All fields are mandtory.." })
 
         const isEmailExist = await UserModel.find({ username: username })
         if (isEmailExist.length) {
@@ -20,7 +21,9 @@ export const SignUp = async (req, res) => {
 
         const user = new UserModel({
             username,
-            password: hashedPassword
+            password: hashedPassword,
+            email,
+            mobile
         });
 
         await user.save();
@@ -37,9 +40,9 @@ export const SignUp = async (req, res) => {
 
 export const Login = async (req, res) => {
     try {
-        const { username, password } = req.body.loginData;
-        if (!username || !password) return res.json({ success: false, message: "All Fileds are required" })
-        const user = await UserModel.findOne({ username })
+        const { email, password } = req.body.loginData;
+        if (!email || !password) return res.json({ success: false, message: "All Fileds are required" })
+        const user = await UserModel.findOne({ email })
         if (!user)
             return res.json({
                 success: false,
@@ -50,7 +53,9 @@ export const Login = async (req, res) => {
             const userObj = {
                 username: user.username,
                 password: user.password,
-                _id: user._id
+                _id: user._id,
+                email: user.email,
+                mobile: user.mobile
             }
             const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' })
 
@@ -62,4 +67,27 @@ export const Login = async (req, res) => {
     catch (error) {
         return res.json({ success: false, message: error })
     }
+}
+
+export const User_Detail = (req, res) => {
+    const userId = req.params.uId
+    UserModel.findOne({ _id: userId })
+        .then((result) => {
+            res.send({ message: "Success", user:result })
+        })
+        .catch(() => {
+            res.send({ message: "Server Err" })
+        })
+}
+
+export const My_Products=(req,res)=>{
+    const userId = req.body.userId;
+
+    ProductModel.find({ addedBy: userId })
+        .then((result) => {
+            res.send({ message: 'success', products: result })
+        })
+        .catch((err) => {
+            res.send({ message: 'server err' })
+        })
 }

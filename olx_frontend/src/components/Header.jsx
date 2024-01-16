@@ -1,24 +1,48 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Header.css'
 import { Link, useNavigate } from 'react-router-dom'
+import { FaSearch } from "react-icons/fa";
 
 const Header = (props) => {
   const route = useNavigate()
+  const [showover, setShowover] = useState(false)
   const handleLogout = () => {
     localStorage.removeItem('token')
-    route('/login')
+    localStorage.removeItem('UserId')
+    route('/')
   }
-  const handleClick = () => {
 
-  }
+  let location = [
+    {
+      "latitude": 19.218076,
+      "longitude": 72.986697,
+      "PlaceName": "Mumbai, MH"
+    },
+    {
+      "latitude": 19.218076,
+      "longitude": 72.986697,
+      "PlaceName": "Thane MH"
+    }
+  ]
+ 
   return (
     <div className='header-container d-flex justify-content-between'>
       <div className='header'>
         <Link to="/" className='links'>Home</Link>
+        <select value='' onChange={(e) =>
+          localStorage.setItem('userLoc', e.target.value)}>
+          {
+            location.map((item, index) => {
+              return (
+                <option value={`${item.latitude},${item.longitude}`}>{item.PlaceName}</option>
+              )
+            })
+          }
+        </select>
         <input type='text' className='search'
           value={props && props.search}
           onChange={(e) => props.handlesearch && props.handlesearch(e.target.value)} />
-        <button className='search-btn' onClick={() => props.handleClick && props.handleClick()}>SEARCH</button>
+        <button className='search-btn' onClick={() => props.handleClick && props.handleClick()}><FaSearch /></button>
         {/* <span className='mt-3'> Sell And spanurchase...In Your City</span> */}
 
 
@@ -26,13 +50,41 @@ const Header = (props) => {
       </div>
       <div>
 
-        {localStorage.getItem('token') &&
-          <Link to='/add-Product'>
-            <button className='logout-btn'>Add Product</button>
-          </Link>}
-        {!localStorage.getItem('token') ?
-          <Link to="login"> LOGIN </Link> :
-          <button onClick={handleLogout} className='logout-btn'>LOGOUT </button>}
+
+
+
+        <div onClick={() => setShowover(!showover)} style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#002f34', display: 'flex', justifyContent: 'center', alignItems: 'center',color:'white'}}>S</div>
+        {showover &&
+          <div style={{ minHeight:'100px',width: '200px', background: '#002f34', position: 'absolute', top: '0', right: '0', marginTop: '55px', marginRight: '50px',zIndex:'1' ,borderRadius:'7px'}}>
+            <div>
+              {localStorage.getItem('token') &&
+                <Link to='/add-Product'>
+                  <button className='logout-btn'>ADD PRODUCT</button>
+                </Link>
+              }
+            </div>
+            <div>
+              {localStorage.getItem('token') &&
+                <Link to='/like-Product'>
+                  <button className='logout-btn'>FAVOURITES</button>
+                </Link>
+              }
+            </div>
+            <div>
+              {localStorage.getItem('token') &&
+                <Link to='/my-products'>
+                  <button className='logout-btn'>MY PRODUCTS</button>
+                </Link>
+              }
+            </div>
+            <div>
+              {!localStorage.getItem('token') ?
+                <Link to="login"> LOGIN </Link> :
+                <button onClick={handleLogout} className='logout-btn'>LOGOUT </button>
+              }
+            </div>
+
+          </div>}
       </div>
     </div>
   )
