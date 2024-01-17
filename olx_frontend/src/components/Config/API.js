@@ -12,8 +12,8 @@
 
 const api = process.env.NODE_ENV != 'development' ?
     process.env.REACT_APP_BASE_URL :
-    // 'http://localhost:7000'
-    'https://bechoapp.onrender.com'
+    'http://localhost:7000'
+    // 'https://bechoapp.onrender.com'
 
 console.log(process.env, "API_URL");
 
