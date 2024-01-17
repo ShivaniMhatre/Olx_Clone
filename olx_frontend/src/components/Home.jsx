@@ -7,8 +7,9 @@ import toast from 'react-hot-toast'
 import Categories from './Categories'
 import { FaHeart } from "react-icons/fa";
 import api from './Config/API'
+import Paginations from './Pagination/Paginations'
 
-const Home = () => {
+const Home = (handlePrevious, handleNext, page, pageCount, setPage) => {
     const route = useNavigate();
     const [products, setProducts] = useState([]);
     const [cproducts, setCproducts] = useState([]);
@@ -136,6 +137,13 @@ const Home = () => {
                         })}
                 </div>
             }
+             <Paginations
+                handlePrevious={handlePrevious}
+                handleNext={handleNext}
+                page={page}
+                pageCount={pageCount}
+                setPage={setPage}
+              />
 
         </div>
     )

@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import Header from './Header';
 import Carousel from 'react-bootstrap/Carousel'
 import api from './Config/API';
-
+import './ProductDetail.css'
 const ProductDetail = () => {
 
   const [product, setProduct] = useState()
@@ -43,11 +43,10 @@ const ProductDetail = () => {
   return (
     <div>
       <Header />
-      Product Details:
       <div>
         {product &&
           <div className='d-flex justify-content-between flex-wrap'>
-            <div>
+            <div className='cols-lg-4'>
               {/* <img width="700px" height="550px" src={'http://localhost:7000/' + product.pimage} alt='' />
               <img width="700px" height="550px" src={'http://localhost:7000/' + product.pimage2} alt='' /> */}
               <Carousel>
@@ -60,30 +59,19 @@ const ProductDetail = () => {
 
               </Carousel>
 
-
-
-
-
-
-
-
-
-
-              <h6>Product Details : </h6>
-              {product.pdesc}
             </div>
-            <div>
+            <div className='detail col-lg-6 cols-md-4 m-3 p-3'>
               <h3 className='m-2 price-text'>{product.pprice}</h3>
               <p className='m-2'>{product.pname} | {product.pcate}</p>
               <p className='m-2 text-success'>{product.pdesc}</p>
               {product.addedBy &&
-                <button onClick={() => handleContact(product.addedBy)}>SHOW CONTACT</button>
+                <button className='show_btn' onClick={() => handleContact(product.addedBy)}>SHOW CONTACT</button>
               }
               {user && user.username &&
                 <>
-                  <h4>{user.username}</h4>
-                  <h3>{user.mobile}</h3>
-                  <h4>{user.email}</h4>
+                  <h4 className='m-3'>{user.username}</h4>
+                  <h3 className='m-3'>{user.mobile}</h3>
+                  <h4 className='m-3'>{user.email}</h4>
                 </>
 
               }
