@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import api from './Config/API'
+import './SignUp.css'
 
 const Login = () => {
   const [loginData, setLoginData] = useState({ email: '', password: '' })
@@ -18,7 +19,8 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     if (loginData.email && loginData.password) {
-      const response = await api.post("/login", { loginData });
+      const url=api+'/login'
+      const response = await axios.post(url, { loginData });
       if (response.data.success) {
         // const userData = response.data.userData;
         // const token = response.data.token;
@@ -42,22 +44,23 @@ const Login = () => {
       <Header />
       <div className='p-3 m-3'>
         <h4 className='text-center'>Welcome To Login Page</h4>
-        <br />
-        Email
-        <input
-          type='email'
-          name='email'
-          onChange={handleChange} 
-          className='form-control'/><br />
-        Password
-        <input
-          type='password'
-          name='password'
-          onChange={handleChange} 
-          className='form-control'/>
-        <br />
-        <button className='btn btn-primary' onClick={handleLogin}>Login</button>
-        <Link className='m-3' to="/signup">Signup</Link>
+        <div className='container'>
+          Email
+          <input
+            type='email'
+            name='email'
+            onChange={handleChange}
+            className='form-control' /><br />
+          Password
+          <input
+            type='password'
+            name='password'
+            onChange={handleChange}
+            className='form-control' />
+          <br />
+          <button className='btn btn-primary SignUpbtn' onClick={handleLogin}>Login</button>
+          <Link className='m-3 text-decoration-none' to="/signup">New User</Link>
+        </div>
       </div>
     </div>
   )

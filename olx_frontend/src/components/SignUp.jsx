@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import api from './Config/API'
+import './SignUp.css'
 
 const SignUp = () => {
     const [userData, setUserData] = useState({ username: '', password: '', Confirmpassword: '' });
@@ -18,7 +19,8 @@ const SignUp = () => {
         e.preventDefault();
         if (userData.username && userData.password && userData.Confirmpassword && userData.email && userData.mobile) {
             if (userData.password === userData.Confirmpassword) {
-                const response = await api.post("/signup", { userData })
+                const url=api+'/signup'
+                const response = await axios.post(url, { userData })
                 if (response.data.success) {
                     setUserData({ username: '', password: '', Confirmpassword: '' })
                     route('/login')
@@ -48,7 +50,7 @@ const SignUp = () => {
             <Header />
             <div className='p-3 m-3'>
                 <h4 className='text-center'>Welcome To Signup Page</h4>
-                <div className=''>
+                <div className='container'>
                     UserName
                     <input
                         type='text'
@@ -80,8 +82,8 @@ const SignUp = () => {
                         onChange={handleChange}
                         className='form-control' />
                     <br />
-                    <button className='btn btn-primary' onClick={handleSignup}>SignUp</button>
-                    <Link className='m-3' to="/login">Login</Link>
+                    <button className='btn btn-primary SignUpbtn' onClick={handleSignup}>SignUp</button>
+                    <Link className='m-3 text-decoration-none' to="/login">Already Have An Account?</Link>
                 </div>
             </div>
         </div>

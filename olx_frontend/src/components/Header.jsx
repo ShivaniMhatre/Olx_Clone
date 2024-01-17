@@ -26,7 +26,7 @@ const Header = (props) => {
   ]
  
   return (
-    <div className='header-container d-flex justify-content-between'>
+    <div className='header-container d-flex justify-content-between navbar navbar-expand-sm '>
       <div className='header'>
         <Link to="/" className='links'>Home</Link>
         <select value='' onChange={(e) =>
@@ -39,7 +39,7 @@ const Header = (props) => {
             })
           }
         </select>
-        <input type='text' className='search'
+        <input type='text' className='search '
           value={props && props.search}
           onChange={(e) => props.handlesearch && props.handlesearch(e.target.value)} />
         <button className='search-btn' onClick={() => props.handleClick && props.handleClick()}><FaSearch /></button>
