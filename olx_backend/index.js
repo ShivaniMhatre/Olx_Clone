@@ -17,9 +17,10 @@ app.use(express.json())
 dotenv.config();
 app.use(cors())
 app.use('/uploads', express.static(path.join('uploads')))
-app.get('/', (req, res) => {
-  res.send("Hello World")
-})
+
+// app.get('/', (req, res) => {
+//   res.send("Hello World")
+// })
 
 // File Upload 
 const storage = multer.diskStorage({

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './Header.css'
 import { Link, useNavigate } from 'react-router-dom'
-import { FaSearch } from "react-icons/fa";
+import { FaRegUser, FaSearch } from "react-icons/fa";
 
 const Header = (props) => {
   const route = useNavigate()
@@ -53,9 +53,10 @@ const Header = (props) => {
 
 
 
-        <div onClick={() => setShowover(!showover)} style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#002f34', display: 'flex', justifyContent: 'center', alignItems: 'center',color:'white'}}>S</div>
+        
+        <div onClick={() => setShowover(!showover)} style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#002f34', display: 'flex', justifyContent: 'center', alignItems: 'center',color:'white'}}><FaRegUser /></div>
         {showover &&
-          <div style={{ minHeight:'100px',width: '200px', background: '#002f34', position: 'absolute', top: '0', right: '0', marginTop: '55px', marginRight: '50px',zIndex:'1' ,borderRadius:'7px'}}>
+          <div style={{width: '200px', background: '#002f34', position: 'absolute', top: '0', right: '0', marginTop: '55px', marginRight: '50px',zIndex:'1' ,borderRadius:'7px'}}>
             <div>
               {localStorage.getItem('token') &&
                 <Link to='/add-Product'>
@@ -86,7 +87,7 @@ const Header = (props) => {
             </div> */}
             <div>
               {!localStorage.getItem('token') ?
-                <Link to="login"> LOGIN </Link> :
+                 <Link to="login"> <button className='logout-btn'>LOGIN </button> </Link> :
                 <button onClick={handleLogout} className='logout-btn'>LOGOUT </button>
               }
             </div>
