@@ -9,7 +9,7 @@ import multer from 'multer';
 import path from 'path'
 // import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import { Login, MyProfile, My_Products, SignUp, User_Detail } from './Controllers/UserController.js';
+import { Login,  My_Products, My_Profile, SignUp, User_Detail } from './Controllers/UserController.js';
 import { AddProduct, Get_Like_Product, Get_Product, Get_Products, Like_Product, Product_Detail, search } from './Controllers/ProductController.js';
 
 const app = express()
@@ -47,7 +47,7 @@ app.get('/product-detail/:id', Product_Detail)
 app.get('/search', search)
 app.get('/get-Products', Get_Products)
 app.post('/my-products', My_Products)
-app.get('/my-profile/:userId', MyProfile)
+app.get('/my-profile/:id', My_Profile)
 // Port Setting
 app.listen(7000, () => {
   console.log(`Example app running om port no 7000`)

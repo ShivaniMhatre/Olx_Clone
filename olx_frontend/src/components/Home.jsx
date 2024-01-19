@@ -75,7 +75,7 @@ const Home = (handlePrevious, handleNext, page, pageCount, setPage) => {
         }
         const url = api + '/like-Product'
         const data = { userId, productId }
-        api.post(url, data)
+        axios.post(url, data)
             .then((res) => {
                 if (res.data) {
                     toast.success("Product Added to Liked Product")

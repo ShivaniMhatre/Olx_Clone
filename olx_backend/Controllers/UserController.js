@@ -73,14 +73,14 @@ export const User_Detail = (req, res) => {
     const userId = req.params.uId
     UserModel.findOne({ _id: userId })
         .then((result) => {
-            res.send({ message: "Success", user:result })
+            res.send({ message: "Success", user: result })
         })
         .catch(() => {
             res.send({ message: "Server Err" })
         })
 }
 
-export const My_Products=(req,res)=>{
+export const My_Products = (req, res) => {
     const userId = req.body.userId;
 
     ProductModel.find({ addedBy: userId })
@@ -92,22 +92,19 @@ export const My_Products=(req,res)=>{
         })
 }
 
-export const MyProfile=(req,res)=>{
-    let uid = req.params.userId
-
-    Users.findOne({ _id: uid })
+export const My_Profile = (req, res) => {
+    UserModel.findOne({ _id: req.params.id})
         .then((result) => {
             res.send({
-                message: 'success.', user: {
+                message: "success...",
+                user: {
                     email: result.email,
-                    mobile: result.mobile,
-                    username: result.username
+                    username: user.username,
+                    mobile: user.mobile
                 }
             })
         })
-        .catch(() => {
-            res.send({ message: 'server err' })
+        .catch(()=>{
+            res.send({message:'ser err'})
         })
-
-    return;
-}
+} 

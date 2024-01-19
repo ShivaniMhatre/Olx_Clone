@@ -5,21 +5,21 @@ import api from "./Config/API";
 
 function MyProfile() {
 
-    const [user, setuser] = useState({})
-
+    const [User, setUser] = useState({})
     useEffect(() => {
-        let url = api + '/my-profile/' + localStorage.getItem('UserId');
+        let url = 'http://localhost:7000/my-profile/' + localStorage.getItem('UserId')
         axios.get(url)
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data.user) {
-                    setuser(res.data.user);
+                    setUser(res.data.user)
                 }
             })
             .catch((err) => {
-                alert('Server Err.')
+                alert('Sever Err')
             })
     }, [])
+
 
 
     return (
@@ -32,15 +32,15 @@ function MyProfile() {
                         <tr>
                             <td> USERNAME </td>
                             <td> EMAIL ID </td>
-                            <td> MoBILE </td>
+                            <td> MOBILE </td>
                         </tr>
                     </thead>
                     <tbody>
 
                         <tr>
-                            <td>  {user.username} </td>
-                            <td>  {user.email} </td>
-                            <td>  {user.mobile} </td>
+                             <td>  {User.username} </td>
+                            {/*<td>  {user.email} </td>
+                            <td>  {user.mobile} </td> */}
                         </tr>
                     </tbody>
                 </table>

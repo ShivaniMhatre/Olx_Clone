@@ -71,6 +71,9 @@ const LikedProducts = () => {
             })
     }
 
+    const handleProduct = (id) => {
+        route('/product-detail/' + id)
+    }
     return (
         <div>
             <Header search={search} handlesearch={handlesearch} handleClick={handleClick} />
@@ -82,7 +85,7 @@ const LikedProducts = () => {
                 {cproducts && products.length > 0 &&
                     cproducts.map((item, index) => {
                         return (
-                            <div className='card m-3' key={item._id}>
+                            <div className='card m-3' key={item._id} onClick={() => handleProduct(item._id)}>
                                 <div onClick={() => handleLike(item._id)} className='icon-con'>
                                     <FaHeart className='icons' />
                                 </div>
@@ -102,7 +105,7 @@ const LikedProducts = () => {
                     products.map((item, index) => {
                         return (
                             <div className='card m-3' key={item._id}>
-                                <div onClick={() => handleLike(item._id)} className='icon-con'>
+                                <div onClick={() => handleLike(item._id)}  className='icon-con'>
                                     <FaHeart className='icons' />
                                 </div>
                                 <img width="300px" height="200px" src={api + '/' + item.pimage} />
