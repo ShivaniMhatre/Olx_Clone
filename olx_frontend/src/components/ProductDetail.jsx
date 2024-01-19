@@ -13,7 +13,7 @@ const ProductDetail = () => {
   const p = useParams()
 
   useEffect(() => {
-    const url =api+'/product-detail/' + p.id
+    const url = API_URL + '/product-detail/' + p.id
     axios.get(url)
       .then((res) => {
         if (res.data.product) {
@@ -29,7 +29,7 @@ const ProductDetail = () => {
   const handleContact = (addedBy) => {
     console.log("id", addedBy)
 
-    const url = api+'/user-detail/' + addedBy
+    const url = API_URL + '/user-detail/' + addedBy
     axios.get(url)
       .then((res) => {
         if (res.data.user) {
@@ -51,10 +51,10 @@ const ProductDetail = () => {
               <img width="700px" height="550px" src={'http://localhost:7000/' + product.pimage2} alt='' /> */}
               <Carousel>
                 <Carousel.Item>
-                  <img width="750px" height="550px" src={api+'/' + product.pimage} alt='' />
+                  <img width="750px" height="550px" src={API_URL + '/' + product.pimage} alt='' />
                 </Carousel.Item>
                 <Carousel.Item>
-                  <img width="750px" height="550px" src={api+'/' + product.pimage2} alt='' />
+                  <img width="750px" height="550px" src={API_URL + '/' + product.pimage2} alt='' />
                 </Carousel.Item>
 
               </Carousel>

@@ -4,7 +4,7 @@ import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import Header from './Header'
 import Categories from './CategoryList'
-import api from './Config/API'
+import API_URL from '../constant.js'
 
 const AddProduct = () => {
 
@@ -33,7 +33,7 @@ const AddProduct = () => {
         formData.append('pimage2', pimage2)
         formData.append('userId', localStorage.getItem('UserId'))
 
-        const url = api + '/add-Product';
+        const url = API_URL + '/add-Product';
         axios.post(url, formData)
             .then((res) => {
                 if (res.data) {
@@ -78,9 +78,7 @@ const AddProduct = () => {
                     onChange={(e) => { setPprice(e.target.value) }} />
                 <label>Product Category</label>
                 <select className='form-control' value={pcate} onChange={(e) => { setPcate(e.target.value) }}>
-                    <option>Bike</option>
-                    <option>Mobile</option>
-                    <option>Cloth</option>
+                   
                     {
                         Categories && Categories.length > 0 &&
                         Categories.map((item, index) => {

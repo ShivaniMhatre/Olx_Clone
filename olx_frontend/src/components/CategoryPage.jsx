@@ -6,7 +6,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import Categories from './Categories'
 import { FaHeart } from "react-icons/fa";
-import api from './Config/API'
+import API_URL from '../constant'
 
 const CategoryPage = () => {
     const route = useNavigate();
@@ -18,7 +18,7 @@ const CategoryPage = () => {
     const [issearch, setISsreach] = useState(false);
 
     useEffect(() => {
-        const url = api + '/get-Products?catName=' + param.catName
+        const url = API_URL + '/get-Products?catName=' + param.catName
         axios.get(url)
             .then((res) => {
                 if (res.data.product) {
@@ -36,7 +36,7 @@ const CategoryPage = () => {
         setSearch(value)
     }
     const handleClick = () => {
-        const url = api + '/search?search=' + search;
+        const url = API_URL + '/search?search=' + search;
         axios.get(url)
             .then((res) => {
                 setCproducts(res.data.product)
@@ -67,7 +67,7 @@ const CategoryPage = () => {
 
     const handleLike = (productId) => {
         let userId = localStorage.getItem('UserId')
-        const url = api + '/like-Product'
+        const url = API_URL + '/like-Product'
         const data = { userId, productId }
         axios.post(url, data)
             .then((res) => {
@@ -104,7 +104,7 @@ const CategoryPage = () => {
                                     <div onClick={() => handleLike(item._id)} className='icon-con'>
                                         <FaHeart className='icons' />
                                     </div>
-                                    <img width="350px" height="250px" src={api + '/' + item.pimage} />
+                                    <img width="350px" height="250px" src={API_URL + '/' + item.pimage} />
                                     <h3 className='m-2 price-text'>{item.pprice}</h3>
                                     <p className='m-2'>{item.pname} | {item.pcate}</p>
                                     <p className='m-2 text-success'>{item.pdesc}</p>
@@ -122,7 +122,7 @@ const CategoryPage = () => {
                                     <div onClick={() => handleLike(item._id)} className='icon-con'>
                                         <FaHeart className='icons' />
                                     </div>
-                                    <img width="350px" height="250px" src={api + '/' + item.pimage} />
+                                    <img width="350px" height="250px" src={API_URL + '/' + item.pimage} />
                                     <h3 className='m-2 price-text'>Rs. {item.pprice}/-</h3>
                                     <p className='m-2'>{item.pname} | {item.pcate}</p>
                                     <p className='m-2 text-success'>{item.pdesc}</p>

@@ -5,6 +5,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import api from './Config/API'
 import './SignUp.css'
+import API_URL from '../constant'
 
 const SignUp = () => {
     const [userData, setUserData] = useState({ username: '', password: '', Confirmpassword: '' });
@@ -19,7 +20,7 @@ const SignUp = () => {
         e.preventDefault();
         if (userData.username && userData.password && userData.Confirmpassword && userData.email && userData.mobile) {
             if (userData.password === userData.Confirmpassword) {
-                const url=api+'/signup'
+                const url = API_URL + '/signup'
                 const response = await axios.post(url, { userData })
                 if (response.data.success) {
                     setUserData({ username: '', password: '', Confirmpassword: '' })

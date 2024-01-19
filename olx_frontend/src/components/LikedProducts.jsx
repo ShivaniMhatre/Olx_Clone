@@ -5,7 +5,7 @@ import { FaHeart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Categories from './Categories';
-import api from './Config/API';
+import API_URL from '../constant';
 
 const LikedProducts = () => {
     const route = useNavigate();
@@ -20,7 +20,7 @@ const LikedProducts = () => {
     // }, [])
 
     useEffect(() => {
-        const url = api + '/get-like-Product';
+        const url = API_URL + '/get-like-Product';
         let data = { userId: localStorage.getItem('UserId') }
         axios.post(url, data)
             .then((res) => {
@@ -58,7 +58,7 @@ const LikedProducts = () => {
 
     const handleLike = (productId) => {
         let userId = localStorage.getItem('UserId')
-        const url = api + '/like-Product'
+        const url = API_URL + '/like-Product'
         const data = { userId, productId }
         axios.post(url, data)
             .then((res) => {
@@ -89,7 +89,7 @@ const LikedProducts = () => {
                                 <div onClick={() => handleLike(item._id)} className='icon-con'>
                                     <FaHeart className='icons' />
                                 </div>
-                                <img width="300px" height="200px" src={api + '/' + item.pimage} />
+                                <img width="300px" height="200px" src={API_URL + '/' + item.pimage} />
                                 <p className='m-2'>{item.pname} | {item.pcate}</p>
                                 <h3 className='m-2 text-danger'>{item.pprice}</h3>
                                 <p className='m-2 text-success'>{item.pdesc}</p>
@@ -108,7 +108,7 @@ const LikedProducts = () => {
                                 <div onClick={() => handleLike(item._id)}  className='icon-con'>
                                     <FaHeart className='icons' />
                                 </div>
-                                <img width="300px" height="200px" src={api + '/' + item.pimage} />
+                                <img width="300px" height="200px" src={API_URL + '/' + item.pimage} />
                                 <p className='m-2'>{item.pname} | {item.pcate}</p>
                                 <h3 className='m-2 text-danger'>{item.pprice}</h3>
                                 <p className='m-2 text-success'>{item.pdesc}</p>

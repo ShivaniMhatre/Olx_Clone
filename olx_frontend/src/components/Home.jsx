@@ -6,8 +6,8 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import Categories from './Categories'
 import { FaHeart } from "react-icons/fa";
-import api from './Config/API'
 import Paginations from './Pagination/Paginations'
+import API_URL from '../constant'
 
 const Home = (handlePrevious, handleNext, page, pageCount, setPage) => {
     const route = useNavigate();
@@ -17,7 +17,7 @@ const Home = (handlePrevious, handleNext, page, pageCount, setPage) => {
     const [issearch, setISsreach] = useState(false);
 
     useEffect(() => {
-        const url = api + '/get-Product'
+        const url = API_URL + '/get-Product'
         axios.get(url)
             .then((res) => {
                 if (res.data.product) {
@@ -35,7 +35,7 @@ const Home = (handlePrevious, handleNext, page, pageCount, setPage) => {
         setSearch(value)
     }
     const handleClick = () => {
-        const url = api + '/search?search=' + search;
+        const url = API_URL + '/search?search=' + search;
         axios.get(url)
             .then((res) => {
                 setCproducts(res.data.product)
@@ -73,7 +73,7 @@ const Home = (handlePrevious, handleNext, page, pageCount, setPage) => {
             route('/login')
             return;
         }
-        const url = api + '/like-Product'
+        const url = API_URL + '/like-Product'
         const data = { userId, productId }
         axios.post(url, data)
             .then((res) => {
@@ -110,7 +110,7 @@ const Home = (handlePrevious, handleNext, page, pageCount, setPage) => {
                                     <div onClick={(e) => handleLike(item._id)} className='icon-con'>
                                         <FaHeart className='icons' />
                                     </div>
-                                    <img width="350px" height="250px" src={api  +'/' + item.pimage} />
+                                    <img width="350px" height="250px" src={API_URL  +'/' + item.pimage} />
                                     <h3 className='m-2 price-text'>{item.pprice}</h3>
                                     <p className='m-2'>{item.pname} | {item.pcate}</p>
                                     <p className='m-2 text-success'>{item.pdesc}</p>
@@ -128,7 +128,7 @@ const Home = (handlePrevious, handleNext, page, pageCount, setPage) => {
                                     <div onClick={(e) => handleLike(item._id, e)} className='icon-con'>
                                         <FaHeart className='icons' />
                                     </div>
-                                    <img width="350px" height="250px" src={api +'/'+ item.pimage} />
+                                    <img width="350px" height="250px" src={API_URL +'/'+ item.pimage} />
                                     <h3 className='m-2 price-text'>Rs. {item.pprice}/-</h3>
                                     <p className='m-2'>{item.pname} | {item.pcate}</p>
                                     <p className='m-2 text-success'>{item.pdesc}</p>

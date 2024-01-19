@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import Header from "./Header";
 import axios from "axios";
 import api from "./Config/API";
+import API_URL from "../constant";
 
 function MyProfile() {
 
     const [User, setUser] = useState({})
     useEffect(() => {
-        let url = 'http://localhost:7000/my-profile/' + localStorage.getItem('UserId')
+        let url = API_URL + '/my-profile/' + localStorage.getItem('UserId')
         axios.get(url)
             .then((res) => {
                 // console.log(res.data)
@@ -38,7 +39,7 @@ function MyProfile() {
                     <tbody>
 
                         <tr>
-                             <td>  {User.username} </td>
+                            <td>  {User.username} </td>
                             {/*<td>  {user.email} </td>
                             <td>  {user.mobile} </td> */}
                         </tr>

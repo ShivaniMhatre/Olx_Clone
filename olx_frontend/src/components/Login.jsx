@@ -19,7 +19,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     if (loginData.email && loginData.password) {
-      const url=api+'/login'
+      const url = API_URL + '/login'
       const response = await axios.post(url, { loginData });
       if (response.data.success) {
         // const userData = response.data.userData;
