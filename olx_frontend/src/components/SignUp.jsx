@@ -3,7 +3,6 @@ import Header from './Header'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import api from './Config/API'
 import './SignUp.css'
 import API_URL from '../constant'
 

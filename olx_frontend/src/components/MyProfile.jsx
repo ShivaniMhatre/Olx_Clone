@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import axios from "axios";
-import api from "./Config/API";
 import API_URL from "../constant";
 
 function MyProfile() {

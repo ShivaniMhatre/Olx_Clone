@@ -4,8 +4,8 @@ import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom'
 import Header from './Header';
 import Carousel from 'react-bootstrap/Carousel'
-import api from './Config/API';
 import './ProductDetail.css'
+import API_URL from '../constant';
 const ProductDetail = () => {
 
   const [product, setProduct] = useState()
